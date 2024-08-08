@@ -166,15 +166,19 @@ func (rcv *Mount) LookupByKey(key uint32, vectorLocation flatbuffers.UOffsetT, b
 	return false
 }
 
-func (rcv *Mount) NameEn() []byte {
+func (rcv *Mount) SortOrder() uint32 {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(6))
 	if o != 0 {
-		return rcv._tab.ByteVector(o + rcv._tab.Pos)
+		return rcv._tab.GetUint32(o + rcv._tab.Pos)
 	}
-	return nil
+	return 0
 }
 
-func (rcv *Mount) NameFr() []byte {
+func (rcv *Mount) MutateSortOrder(n uint32) bool {
+	return rcv._tab.MutateUint32Slot(6, n)
+}
+
+func (rcv *Mount) NameEn() []byte {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(8))
 	if o != 0 {
 		return rcv._tab.ByteVector(o + rcv._tab.Pos)
@@ -182,7 +186,7 @@ func (rcv *Mount) NameFr() []byte {
 	return nil
 }
 
-func (rcv *Mount) NameDe() []byte {
+func (rcv *Mount) NameFr() []byte {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(10))
 	if o != 0 {
 		return rcv._tab.ByteVector(o + rcv._tab.Pos)
@@ -190,7 +194,7 @@ func (rcv *Mount) NameDe() []byte {
 	return nil
 }
 
-func (rcv *Mount) NameJa() []byte {
+func (rcv *Mount) NameDe() []byte {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(12))
 	if o != 0 {
 		return rcv._tab.ByteVector(o + rcv._tab.Pos)
@@ -198,23 +202,34 @@ func (rcv *Mount) NameJa() []byte {
 	return nil
 }
 
+func (rcv *Mount) NameJa() []byte {
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(14))
+	if o != 0 {
+		return rcv._tab.ByteVector(o + rcv._tab.Pos)
+	}
+	return nil
+}
+
 func MountStart(builder *flatbuffers.Builder) {
-	builder.StartObject(5)
+	builder.StartObject(6)
 }
 func MountAddId(builder *flatbuffers.Builder, id uint32) {
 	builder.PrependUint32Slot(0, id, 0)
 }
+func MountAddSortOrder(builder *flatbuffers.Builder, sortOrder uint32) {
+	builder.PrependUint32Slot(1, sortOrder, 0)
+}
 func MountAddNameEn(builder *flatbuffers.Builder, nameEn flatbuffers.UOffsetT) {
-	builder.PrependUOffsetTSlot(1, flatbuffers.UOffsetT(nameEn), 0)
+	builder.PrependUOffsetTSlot(2, flatbuffers.UOffsetT(nameEn), 0)
 }
 func MountAddNameFr(builder *flatbuffers.Builder, nameFr flatbuffers.UOffsetT) {
-	builder.PrependUOffsetTSlot(2, flatbuffers.UOffsetT(nameFr), 0)
+	builder.PrependUOffsetTSlot(3, flatbuffers.UOffsetT(nameFr), 0)
 }
 func MountAddNameDe(builder *flatbuffers.Builder, nameDe flatbuffers.UOffsetT) {
-	builder.PrependUOffsetTSlot(3, flatbuffers.UOffsetT(nameDe), 0)
+	builder.PrependUOffsetTSlot(4, flatbuffers.UOffsetT(nameDe), 0)
 }
 func MountAddNameJa(builder *flatbuffers.Builder, nameJa flatbuffers.UOffsetT) {
-	builder.PrependUOffsetTSlot(4, flatbuffers.UOffsetT(nameJa), 0)
+	builder.PrependUOffsetTSlot(5, flatbuffers.UOffsetT(nameJa), 0)
 }
 func MountEnd(builder *flatbuffers.Builder) flatbuffers.UOffsetT {
 	return builder.EndObject()

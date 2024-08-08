@@ -166,15 +166,19 @@ func (rcv *Minion) LookupByKey(key uint32, vectorLocation flatbuffers.UOffsetT, 
 	return false
 }
 
-func (rcv *Minion) NameEn() []byte {
+func (rcv *Minion) SortOrder() uint32 {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(6))
 	if o != 0 {
-		return rcv._tab.ByteVector(o + rcv._tab.Pos)
+		return rcv._tab.GetUint32(o + rcv._tab.Pos)
 	}
-	return nil
+	return 0
 }
 
-func (rcv *Minion) NameFr() []byte {
+func (rcv *Minion) MutateSortOrder(n uint32) bool {
+	return rcv._tab.MutateUint32Slot(6, n)
+}
+
+func (rcv *Minion) NameEn() []byte {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(8))
 	if o != 0 {
 		return rcv._tab.ByteVector(o + rcv._tab.Pos)
@@ -182,7 +186,7 @@ func (rcv *Minion) NameFr() []byte {
 	return nil
 }
 
-func (rcv *Minion) NameDe() []byte {
+func (rcv *Minion) NameFr() []byte {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(10))
 	if o != 0 {
 		return rcv._tab.ByteVector(o + rcv._tab.Pos)
@@ -190,7 +194,7 @@ func (rcv *Minion) NameDe() []byte {
 	return nil
 }
 
-func (rcv *Minion) NameJa() []byte {
+func (rcv *Minion) NameDe() []byte {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(12))
 	if o != 0 {
 		return rcv._tab.ByteVector(o + rcv._tab.Pos)
@@ -198,23 +202,34 @@ func (rcv *Minion) NameJa() []byte {
 	return nil
 }
 
+func (rcv *Minion) NameJa() []byte {
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(14))
+	if o != 0 {
+		return rcv._tab.ByteVector(o + rcv._tab.Pos)
+	}
+	return nil
+}
+
 func MinionStart(builder *flatbuffers.Builder) {
-	builder.StartObject(5)
+	builder.StartObject(6)
 }
 func MinionAddId(builder *flatbuffers.Builder, id uint32) {
 	builder.PrependUint32Slot(0, id, 0)
 }
+func MinionAddSortOrder(builder *flatbuffers.Builder, sortOrder uint32) {
+	builder.PrependUint32Slot(1, sortOrder, 0)
+}
 func MinionAddNameEn(builder *flatbuffers.Builder, nameEn flatbuffers.UOffsetT) {
-	builder.PrependUOffsetTSlot(1, flatbuffers.UOffsetT(nameEn), 0)
+	builder.PrependUOffsetTSlot(2, flatbuffers.UOffsetT(nameEn), 0)
 }
 func MinionAddNameFr(builder *flatbuffers.Builder, nameFr flatbuffers.UOffsetT) {
-	builder.PrependUOffsetTSlot(2, flatbuffers.UOffsetT(nameFr), 0)
+	builder.PrependUOffsetTSlot(3, flatbuffers.UOffsetT(nameFr), 0)
 }
 func MinionAddNameDe(builder *flatbuffers.Builder, nameDe flatbuffers.UOffsetT) {
-	builder.PrependUOffsetTSlot(3, flatbuffers.UOffsetT(nameDe), 0)
+	builder.PrependUOffsetTSlot(4, flatbuffers.UOffsetT(nameDe), 0)
 }
 func MinionAddNameJa(builder *flatbuffers.Builder, nameJa flatbuffers.UOffsetT) {
-	builder.PrependUOffsetTSlot(4, flatbuffers.UOffsetT(nameJa), 0)
+	builder.PrependUOffsetTSlot(5, flatbuffers.UOffsetT(nameJa), 0)
 }
 func MinionEnd(builder *flatbuffers.Builder) flatbuffers.UOffsetT {
 	return builder.EndObject()
