@@ -16,7 +16,7 @@ func listContains(test string, list ...string) bool {
 	return false
 }
 
-var bracketed = regexp.MustCompile("\\[.*\\]")
+var bracketed = regexp.MustCompile(`\[.*\]`)
 
 func removeBracketedPhrases(input string) string {
 	return bracketed.ReplaceAllString(input, "")
